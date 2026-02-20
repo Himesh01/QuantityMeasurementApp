@@ -1,28 +1,31 @@
 /.metadata/
-# Eclipse specific files
+# Maven
+/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
 
-.metadata/
-
-.settings/
-
-.classpath
-
-.project
-
-# Java build output
-
-bin/
-
-target/
+# Compiled class files
+*.class
 
 # Logs
-
 *.log
 
-# OS generated files
+# Eclipse files
+.settings/
+.project
+.classpath
+.metadata/
 
+# IntelliJ
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# OS files
 .DS_Store
-
 Thumbs.db
-
-*.class
