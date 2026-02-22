@@ -24,7 +24,7 @@ public class TestQuantityMeasurementApp {
 		QuantityMeasurement.Inches inche2;
 		Length len1;
 		Length len2;
-		
+	
 	    @Test
 	    public void testFeetEquals() {
 	    	feet1 = new FeetEquality(1);
@@ -247,5 +247,58 @@ public class TestQuantityMeasurementApp {
 	    	Length len3 = new Length(72,LengthUnit.INCHES);
 	    	assertTrue(len1.equals(len2)&&len1.equals(len3));
 	   }
-	    
-}
+	
+	@Test
+	public void testConversionFeetToInches() throws InvalidUnitMeasurementException {
+		assertEquals(12.0,QuantityMeasurement.demonstrateLengthConversion(1.0,LengthUnit.FEET,LengthUnit.INCHES).getValue());
+	}
+	
+	@Test
+	public void testConversionInchesToFeet() throws InvalidUnitMeasurementException{
+		assertEquals(2.0,QuantityMeasurement.demonstrateLengthConversion(24.0,LengthUnit.INCHES,LengthUnit.FEET).getValue());
+	}
+	 @Test
+	 public void testConversionYardToInches()throws InvalidUnitMeasurementException{
+		 assertEquals(36.0,QuantityMeasurement.demonstrateLengthConversion(1.0,LengthUnit.YARD,LengthUnit.INCHES).getValue());	
+		 }
+	 @Test
+	 public void testConversionInchesToYards()throws InvalidUnitMeasurementException {
+		 assertEquals(2.0,QuantityMeasurement.demonstrateLengthConversion(72.0,LengthUnit.INCHES,LengthUnit.YARD).getValue());
+	 }
+     @Test
+     public void testConversionCentimetreToInches() throws InvalidUnitMeasurementException{
+    	 assertEquals(1,QuantityMeasurement.demonstrateLengthConversion(2.54,LengthUnit.CENTIMETRE,LengthUnit.INCHES).getValue(),0.0001);
+     }
+     @Test
+     public void testConversionFeetToYard() throws InvalidUnitMeasurementException{
+    	 assertEquals(2.0,QuantityMeasurement.demonstrateLengthConversion(6.0,LengthUnit.FEET,LengthUnit.YARD).getValue());
+     }
+     @Test
+     public void testConversionRoundTripPreservesValue() throws InvalidUnitMeasurementException{
+    	 assertEquals(12,QuantityMeasurement.demonstrateLengthConversion(QuantityMeasurement.demonstrateLengthConversion(12.0,LengthUnit.INCHES, LengthUnit.FEET).getValue(), LengthUnit.FEET, LengthUnit.INCHES).getValue());
+     }
+     @Test
+     public void testConversionZeroValue() throws InvalidUnitMeasurementException{
+    	 assertEquals(0.0,QuantityMeasurement.demonstrateLengthConversion(0.0, LengthUnit.FEET, LengthUnit.INCHES).getValue());
+     }
+     @Test
+     public void testConversionNegativeValue() throws InvalidUnitMeasurementException{
+    	 assertEquals(-12, QuantityMeasurement.demonstrateLengthConversion(-1.0,LengthUnit.FEET, LengthUnit.INCHES).getValue());
+     }
+     @Test
+     public void testConversionInvalidUnitThrows() throws InvalidUnitMeasurementException{
+    	 assertThrows(IllegalArgumentException.class,()->{
+    		QuantityMeasurement.demonstrateLengthConversion(null, Length.LengthUnit.FEET,Length.LengthUnit.INCHES); 
+    	 });
+     }
+    @Test
+     public void testConversionNaNOrInfiniteThrows() throws InvalidUnitMeasurementException{
+    	assertThrows(IllegalArgumentException.class,()->{
+    		QuantityMeasurement.demonstrateLengthConversion(Double.NaN,LengthUnit.CENTIMETRE,LengthUnit.INCHES);
+    	});
+    }
+    @Test
+    void testConversion_PrecisionTolerance() throws InvalidUnitMeasurementException {
+        assertEquals(1.0,QuantityMeasurement.demonstrateLengthConversion(2.54, LengthUnit.CENTIMETRE,LengthUnit.INCHES).getValue(), 1e-6);
+    }
+	 }
