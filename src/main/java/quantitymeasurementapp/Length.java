@@ -1,5 +1,6 @@
 package quantitymeasurementapp;
 
+
 public class Length {
 	private static final double EPSILON = 0.0001;
 	private double value;
@@ -39,15 +40,16 @@ public class Length {
      public LengthUnit getLen() {
     	 return len;
      }
+//     To convert value to their base unit  
      private double convertToBaseUnit() {
     	 return value*len.getConversionFactor();
      }
-    
      public boolean compare(Length lengthUnit) {
     	 if(lengthUnit==null)return false;
     	  return Math.abs(this.convertToBaseUnit() - lengthUnit.convertToBaseUnit()) < EPSILON;
 	}
      
+//     overrided .equals methods to check if two units are equal or not 
      @Override
     public boolean equals(Object obj) {
         if(this==obj) {
@@ -71,13 +73,31 @@ public class Length {
     	 double converted = (this.value*len.getConversionFactor())/unit.getConversionFactor();
     	 return new Length(converted,unit);
      }
+	 private double convertBaseToTargetUnit(double lengthInInches,LengthUnit targetUnit) {
+		 return (lengthInInches*len.getConversionFactor())/targetUnit.getConversionFactor();
+	 }
 	 
 	 //Add To length and convert Unit to current unit
 	 public Length add(Length thatLength) throws InvalidUnitMeasurementException {
+		 if(thatLength==null)  throw new IllegalArgumentException("Object is null");
+		 
 		 thatLength = thatLength.convertTo(len);
 		 return new Length(value+thatLength.value, len);
 	 }
+	 private Length addAndConvert(Length length,LengthUnit targetUnit) throws InvalidUnitMeasurementException{
+		 if(length==null||targetUnit==null) {
+			 throw new IllegalArgumentException("Invalid input");
+		 }
+		double temp1 = length.convertBaseToTargetUnit(length.getValue(), targetUnit);
+		double temp2 = convertBaseToTargetUnit(this.getValue(), targetUnit);
+		 return new Length(temp1+temp2,targetUnit);
+	 }
 	 
+	 public Length add(Length length,LengthUnit targetUnit) throws InvalidUnitMeasurementException{
+		 return addAndConvert(length, targetUnit);
+	 }
+	 
+	 //Main Method to invoke the methods locally 
      public static void main(String[] args) throws InvalidUnitMeasurementException {
 		Length len1 = new Length(1,Length.LengthUnit.FEET);
 		Length len2 = new Length(12,Length.LengthUnit.INCHES);
