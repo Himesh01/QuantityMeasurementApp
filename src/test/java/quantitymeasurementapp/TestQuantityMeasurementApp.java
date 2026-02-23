@@ -26,6 +26,7 @@ public class TestQuantityMeasurementApp {
 		QuantityMeasurement.FeetEquality feet2;
 		QuantityMeasurement.Inches inche1;
 		QuantityMeasurement.Inches inche2;
+		
 		Length len1;
 		Length len2;
 		
