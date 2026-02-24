@@ -43,17 +43,13 @@
   ├── 📁 src
   │   ├── 📁 main
   │   │   └── 📁 java
-  │   │       └── 📁 com
-  │   │           └── 📁 apps
-  │   │               └── 📁 quantitymeasurement
-  │   │                   └── 📄 QuantityMeasurement.java
+  │   │       └── 📁 quantitymeasurement
+  │   │           └── 📄 QuantityMeasurement.java
   │   │
   │   └── 📁 test
   │       └── 📁 java
-  │           └── 📁 com
-  │               └── 📁 apps
-  │                   └── 📁 quantitymeasurement
-  │                       └── 📄 TestFeetEquality.java
+  │           └── 📁 quantitymeasurement
+  │               └── 📄 TestFeetEquality.java
   │
   ├── ⚙️ pom.xml
   ├── 🚫 .gitignore
