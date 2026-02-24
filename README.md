@@ -48,17 +48,13 @@
   ├── 📁 src
   │   ├── 📁 main
   │   │   └── 📁 java
-  │   │       └── 📁 com
-  │   │           └── 📁 apps
-  │   │               └── 📁 quantitymeasurement
-  │   │                   └── 📄 QuantityMeasurement.java
+  │   │       └── 📁 quantitymeasurement
+  │   │           └── 📄 QuantityMeasurement.java
   │   │
   │   └── 📁 test
   │       └── 📁 java
-  │           └── 📁 com
-  │               └── 📁 apps
-  │                   └── 📁 quantitymeasurement
-  │                       └── 📄 FeetInchesMeasurementEquality.java
+  │           └── 📁 quantitymeasurement
+  │               └── 📄 FeetInchesMeasurementEquality.java
   │
   ├── ⚙️ pom.xml
   ├── 🚫 .gitignore
