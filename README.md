@@ -86,7 +86,7 @@
   │   └── 📁 test
   │       └── 📁 java
   │           └── 📁 quantitymeasurement
-  │           └── 📄 TestQuantityMeasurementApp.java
+  │               └── 📄 TestQuantityMeasurementApp.java
   │
   ├── ⚙️ pom.xml
   ├── 🚫 .gitignore
