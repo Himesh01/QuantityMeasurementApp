@@ -58,7 +58,6 @@ public class Quantity<T extends IMeasurable> {
      }
      
      private Quantity<T> addAndConvert(Quantity<T> val1, T unit){
-    	 
     	 if(unit==null||val1==null) throw new IllegalArgumentException("Invalid Input");
     	 double temp1 = val1.convertBaseToTargetUnit(val1.getValue(), unit);
     	 double temp2 = this.convertBaseToTargetUnit(value, unit);
@@ -69,7 +68,35 @@ public class Quantity<T extends IMeasurable> {
     	 
     	 return this.addAndConvert(val1, unit);
      }
-
+     
+    public Quantity<T> subtract(Quantity<T> val){
+    	if(val==null) throw new IllegalArgumentException("Invalid Input");
+    	double temp = val.convertBaseToTargetUnit(val.getValue(),this.getUnit());
+    	return new Quantity<>(getValue()-temp,this.getUnit());
+    }
+    
+    public Quantity<T> division(Quantity<T>val){
+    	if(val==null) throw new IllegalArgumentException("Invalid Input");
+    	double temp = val.convertBaseToTargetUnit(val.getValue(),this.getUnit());
+    	double answer = 0;
+    	if(temp==0) {
+    		throw new ArithmeticException();
+    	}
+    	answer = getValue()/temp;
+    	return new Quantity<>(answer,this.getUnit());
+    }
+     
+    public Quantity<T> division(Quantity<T> val,T target){
+    	if(val==null||target==null) throw new IllegalArgumentException("Invalid Input");
+    	val = division(val).convertTo(target);
+    	return val;
+    }
+    public Quantity<T> subtract(Quantity<T> val,T target){
+    	if(val==null||target==null) throw new IllegalArgumentException("Invalid Input");
+    	val = subtract(val).convertTo(target);
+    	return val;
+    }
+    
 	 @Override
 	 public String toString() {
 		return "Quantity [value=" + value + ", unit=" + unit + "]";
