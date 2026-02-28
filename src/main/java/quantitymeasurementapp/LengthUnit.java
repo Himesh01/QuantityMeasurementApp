@@ -1,6 +1,7 @@
 package quantitymeasurementapp;
 
 public enum LengthUnit implements IMeasurable{
+	
 	FEET(1.0),
     INCHES(1.0 / 12.0),
     YARD(3.0),
@@ -8,24 +9,23 @@ public enum LengthUnit implements IMeasurable{
 	 
 	 private final double conversion;
 	 
-	LengthUnit(double conversion) {
-		this.conversion = conversion;
-	}
+	 LengthUnit(double conversion) {
+		 this.conversion = conversion;
+	 }
 	
-	public double getConversionFactor() {
-		return conversion;
-	}
-	public double convertToBaseUnit(double value) {
-   	 return value*this.getConversionFactor();
-    }
-    public double convertFromBaseUnit(double value) {
-    	return (LengthUnit.FEET.getConversionFactor()*value)/this.getConversionFactor();
-    }
+	 public double getConversionFactor() {
+		 return conversion;
+	 }
+	 public double convertToBaseUnit(double value) {
+		 return value*this.getConversionFactor();
+	 }
+	 public double convertFromBaseUnit(double value) {
+		 return (LengthUnit.FEET.getConversionFactor()*value)/this.getConversionFactor();
+	 }
 
-
-	@Override
-	public String getUnitName() {
-		// TODO Auto-generated method stub
-		return LengthUnit.this.name();
-	}
+	 @Override
+	 public String getUnitName() {
+		 // TODO Auto-generated method stub
+		 return LengthUnit.this.name();
+	 }
 }
