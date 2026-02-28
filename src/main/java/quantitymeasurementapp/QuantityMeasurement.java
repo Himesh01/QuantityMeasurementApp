@@ -73,7 +73,7 @@ public class QuantityMeasurement {
         
         System.out.println("Addition of litre with mililitre : "+demonstrateAddition(new Quantity<VolumeUnit>(1.0,VolumeUnit.LITRE),new Quantity<VolumeUnit>(1000.0, VolumeUnit.MILLILITRE)));
         
-//        Arthimetic operation
+//        Arithmetic operation
         System.out.println("Subtraction of Feet and Inches : "+demonstrateSubtract(new Quantity<LengthUnit>(10.0,LengthUnit.FEET),new Quantity<LengthUnit>(6.0,LengthUnit.INCHES)));
         
         System.out.println("Subtraction of Kg and Gram : "+demonstrateSubtract(new Quantity<WeightUnit>(10.0,WeightUnit.KG), new Quantity<WeightUnit>(5000.0, WeightUnit.GRAM)));
@@ -88,7 +88,7 @@ public class QuantityMeasurement {
        
         System.out.println("Division of inche with feet : "+demonstrateDivision(new Quantity<LengthUnit>(24.0,LengthUnit.INCHES),new Quantity<LengthUnit>(2.0,LengthUnit.FEET)));
         
-        //Centralized Arithemetic Operation
+        //Centralized Arithmetic Operation
         
         System.out.println("Centralized Addition feet to inches : "+demonstrateAddition(new Quantity<LengthUnit>(1.0, LengthUnit.FEET),new Quantity<LengthUnit>(12.0, LengthUnit.INCHES)));
         
@@ -101,5 +101,27 @@ public class QuantityMeasurement {
         System.out.println("Centralized Division Feet by Feet : "+demonstrateDivision(new Quantity<LengthUnit>(10.0,LengthUnit.FEET), new Quantity<LengthUnit>(2.0,LengthUnit.FEET)));
         
         System.out.println("Centralized Division Inches by feet : "+demonstrateDivision(new Quantity<LengthUnit>(24.0,LengthUnit.INCHES), new Quantity<LengthUnit>(2.0,LengthUnit.FEET)));
+        
+      //Temperature Unit
+        Quantity<TemperatureUnit> temp1 = new Quantity<>(0.0,TemperatureUnit.CELSIUS);
+        
+        Quantity<TemperatureUnit> temp2 = new Quantity<>(32.0,TemperatureUnit.FAHRENHEIT);
+        System.out.println("0C equals 32°F: "+ temp1.equals(temp2));
+
+        // Conversion Demonstration
+        Quantity<TemperatureUnit> celsius = new Quantity<>(100.0,TemperatureUnit.CELSIUS);
+        Quantity<TemperatureUnit> fahrenheit = celsius.convertTo(TemperatureUnit.FAHRENHEIT) ;
+        System.out.println("100C = " + fahrenheit.getValue() + "°F");
+
+        // Unsupported Operation Demonstration
+        try {
+        	celsius.add(new Quantity<>(50.0, TemperatureUnit.CELSIUS));
+        	} catch (UnsupportedOperationException e) {
+        		System.out.println("Cannot add absolute temperatures: " +
+        				e.getMessage());
+        	}
+        		
+        System.out.println("Is Kelvin equal to celsius : "+demonstrateEquality(new Quantity<TemperatureUnit>(273.15, TemperatureUnit.KELVIN),new Quantity<TemperatureUnit>(0.0, TemperatureUnit.CELSIUS)));
+       
 	}
 }

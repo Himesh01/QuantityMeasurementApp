@@ -129,7 +129,7 @@ public class Quantity<T extends IMeasurable> {
 	 }
 
 	 public double compute(double a, double b) {
-	 return operation.applyAsDouble(a, b);
-	 }
+		 return operation.applyAsDouble(a, b);
+	 	}
      }
 }
