@@ -20,13 +20,13 @@ public enum WeightUnit implements IMeasurable{
      }
 
 	 @Override
-	public double convertFromBaseUnit(double value) {
-			return (WeightUnit.KG.getConversionFactor()*value)/this.getConversionFactor();
+	public double convertFromBaseUnit(double value) { 
+		 return (WeightUnit.KG.getConversionFactor()*value)/this.getConversionFactor();
 			}
 
 	 @Override
-	public String getUnitName() {
+	public String getUnitName() { 
 		// TODO Auto-generated method stub
-		return WeightUnit.this.name();
+		 return WeightUnit.this.name();
 	}
 }
