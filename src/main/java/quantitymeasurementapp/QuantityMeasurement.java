@@ -35,10 +35,27 @@ public class QuantityMeasurement {
 		//Weight Unit
 	    Quantity<WeightUnit> w1 = new Quantity<WeightUnit>(1.0, WeightUnit.KG);
 	    Quantity<WeightUnit> w2 = new Quantity<WeightUnit>(1000.0,WeightUnit.GRAM);
-	    System.out.println("Are the w1 and w2 equals : "+demonstrateEquality(w1,w2));
+	    System.out.println("Are the w1 and w2 equals : "+demonstrateEquality(w1, w2));
 	    
 	    System.out.println("Convert Kg To Gram : "+demonstrateConversion(w1,WeightUnit.GRAM));
 	    System.out.println("Addition of Kg and Gram : "+demonstrateAddition(w1, w2,WeightUnit.KG));
 	    
+	    //Volume Unit
+	    
+	    System.out.println("Is Litre equal Litre : "+demonstrateEquality(new Quantity<VolumeUnit>(1.0,VolumeUnit.LITRE),new Quantity<VolumeUnit>(1.0, VolumeUnit.LITRE)));
+	    
+        System.out.println("Is Litre equal Mililitre : "+demonstrateEquality(new Quantity<VolumeUnit>(1.0,VolumeUnit.LITRE),new Quantity<VolumeUnit>(1000.0, VolumeUnit.MILLILITRE)));
+        
+        System.out.println("Is Gallon equal Gallon : "+demonstrateAddition(new Quantity<VolumeUnit>(1.0,VolumeUnit.GALLON),new Quantity<VolumeUnit>(1.0, VolumeUnit.GALLON)));
+        
+        System.out.println("Is Mililitre equal Litre : "+demonstrateEquality(new Quantity<VolumeUnit>(500.0,VolumeUnit.MILLILITRE),new Quantity<VolumeUnit>(0.5, VolumeUnit.LITRE)));
+        
+        System.out.println("Is Litre equal Gallon : "+demonstrateEquality(new Quantity<VolumeUnit>(3.78541,VolumeUnit.LITRE),new Quantity<VolumeUnit>(1.0, VolumeUnit.GALLON)));
+        
+        System.out.println("Addition of Litre with Litre : "+demonstrateAddition(new Quantity<VolumeUnit>(1.0,VolumeUnit.LITRE),new Quantity<VolumeUnit>(2.0, VolumeUnit.LITRE)));
+        
+        System.out.println("Addition of litre with mililitre : "+demonstrateAddition(new Quantity<VolumeUnit>(1.0,VolumeUnit.LITRE),new Quantity<VolumeUnit>(1000.0, VolumeUnit.MILLILITRE)));
+        
+       
 	}
 }
