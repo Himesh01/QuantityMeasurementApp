@@ -1,11 +1,11 @@
 # 📏 QuantityMeasurementApp
 
-> A Java application developed using Test-Driven Development (TDD) to progressively design and refine a quantity measurement system. The project emphasizes incremental development, clean object-oriented design, and continuous refactoring to build a flexible and maintainable domain model over time.
+> A Java application developed using Test-Driven Development (TDD) to progressively design and refine a quantity measurement system. The project emphasizes incremental development, clean object-oriented design, and progressive architectural refactoring to build a flexible and maintainable domain model over time.
 
 ### 📖 Overview
 
-- Modular Java project focused on modelling quantity measurements.
-- Organized around incremental Use Cases to evolve the domain design.
+- Modular Java project focused on modelling multi-category quantity measurements (length, weight, and volume) with full arithmetic and conversion support.
+- Organized around incremental Use Cases evolving from simple equality checks to a scalable, capability-aware measurement architecture.
 - Emphasizes clarity, consistency, and maintainable structure as the system grows.
 
 ### ✅ Implemented Features
@@ -51,6 +51,25 @@
   - Introduces a generic `Quantity<U extends IMeasurable>` model enabling multiple measurement categories through a shared abstraction.
   - Eliminates category-specific duplication by unifying equality, conversion, and addition logic into a single scalable architecture.
 
+- 🧩 **UC11 – Volume Measurement Support :**
+  - Adds a new measurement category using `VolumeUnit` (Litre, Millilitre, Gallon) implemented through the generic `Quantity<U>` architecture.
+  - Validates that new measurement types integrate without modifying existing quantity logic, proving true multi-category scalability.
+
+- 🧩 **UC12 – Subtraction and Division Operations :**
+  - Introduces subtraction between quantities with automatic cross-unit normalization while preserving immutability.
+  - Adds division support producing a dimensionless ratio, enabling comparative analysis across measurements of the same category.
+
+- 🧩 **UC13 – Centralized Arithmetic Logic (DRY Refactor) :**
+  - Refactors addition, subtraction, and division to use a centralized arithmetic helper, eliminating duplicated validation and conversion logic.
+  - Improves maintainability and scalability while preserving all existing behaviour and public APIs.
+
+- 🧩 **UC14 – Temperature Measurement (Selective Arithmetic Support) :**
+  - Introduces temperature measurements using `TemperatureUnit` integrated into the generic `Quantity<U>` architecture.
+  - Supports equality comparison and unit conversion across Celsius, Fahrenheit, and Kelvin using non-linear conversion formulas.
+  - Refactors `IMeasurable` with default capability validation to allow category-specific operation support.
+  - Prevents unsupported arithmetic operations (addition, subtraction, division) through explicit validation and meaningful exceptions.
+  - Demonstrates Interface Segregation and capability-based design while preserving backward compatibility for length, weight, and volume.
+
 ### 🧰 Tech Stack
 
 - **Java 17+** — core language and application development  
@@ -85,12 +104,15 @@
   │   │           ├── 📄 Quantity.java
   │   │           ├── 📄 LengthUnit.java
   │   │           ├── 📄 WeightUnit.java
-  │   │           └── 📄 QuantityMeasurement.java
+  │   │           ├── 📄 VolumeUnit.java
+  │   │           ├── 📄 TemperatureUnit.java
+  │   │           ├── 📄 SupportsArithmetic.java
+  │   │           └── 📄 QuantityMeasurementApp.java
   │   │
   │   └── 📁 test
   │       └── 📁 java
-  │           └── 📁 quantitymeasurementapp
-  │               ├── 📄 TestQuantityMeasurementApp.java
+  │           └── 📁 quantitymeasurement
+  │               ├── 📄 QuantityMeasurementTest.java
   │
   ├── ⚙️ pom.xml
   ├── 🚫 .gitignore
@@ -107,3 +129,4 @@
 - Each Use Case introduces new functionality in small, controlled steps.
 - Existing behaviour is preserved through continuous refactoring.
 - Design evolves toward clean, maintainable, and well-tested software.
+- Later use cases introduce capability-based behavior where different measurement categories support different operations safely.
