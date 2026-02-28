@@ -1,9 +1,9 @@
 package quantitymeasurementapp;
 
 public enum VolumeUnit implements IMeasurable{
-	LITRE(1.0),
-	MILLILITRE(0.001),
-	GALLON(3.78541);
+      LITRE(1.0),
+      MILLILITRE(0.001),
+      GALLON(3.78541);
 	
 	private double conversion;
 	
@@ -32,5 +32,4 @@ public enum VolumeUnit implements IMeasurable{
 		
 		return VolumeUnit.this.name();
 	}
-      
 }
