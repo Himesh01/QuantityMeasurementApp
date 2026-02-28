@@ -22,9 +22,26 @@ public class QuantityMeasurement {
     	return quantity1.add(quantity2,targetUnit);
     }
     
+    public static <T extends IMeasurable> Quantity<T> demonstrateDivision(Quantity<T> val1,Quantity<T> val2){
+    	if(val1.getUnit().getClass()!=val2.getUnit().getClass()) throw new IllegalArgumentException("Invalid Argument Exception ");
+    	return val1.division(val2);
+    }
+    public static <T extends IMeasurable> Quantity<T> demonstrateDivision(Quantity<T> val1,Quantity<T> val2,T target){
+    	if(val1.getUnit().getClass()!=val2.getUnit().getClass()||target.getClass()!=val1.getUnit().getClass()||target.getClass()!=val2.getUnit().getClass()) throw new IllegalArgumentException("Invalid Argument Exception ");
+    	return val1.division(val2,target);
+    }
+    public static <T extends IMeasurable> Quantity<T> demonstrateSubtract(Quantity<T> val1,Quantity<T> val2){
+    	if(val1.getUnit().getClass()!=val2.getUnit().getClass()) throw new IllegalArgumentException("Invalid Argument Exception ");
+    	return val1.subtract(val2);
+    }
+    public static <T extends IMeasurable> Quantity<T> demonstrateSubtract(Quantity<T> val1,Quantity<T> val2,T target){
+    	if(val1.getUnit().getClass()!=val2.getUnit().getClass()||target.getClass()!=val1.getUnit().getClass()||target.getClass()!=val2.getUnit().getClass()) throw new IllegalArgumentException("Invalid Argument Exception ");
+    	return val1.subtract(val2,target);
+    }
+    
     public static void main(String[] args) {
     	
-    	//Length Unit
+//    	Length Unit
 		Quantity<LengthUnit> len1 = new Quantity<LengthUnit>(12.0, LengthUnit.INCHES);
 		Quantity<LengthUnit> len2 = new Quantity<LengthUnit>(1.0,LengthUnit.FEET);
 		System.out.println("Are The len1 and Len2 equals : "+demonstrateEquality(len1,len2));
@@ -32,7 +49,7 @@ public class QuantityMeasurement {
 		System.out.println("Conversion Inche To Feet : "+len2.convertTo(LengthUnit.INCHES));
 		System.out.println("Addition of feet and inches : "+len2.add(len1,LengthUnit.FEET));
 		
-		//Weight Unit
+//		Weight Unit
 	    Quantity<WeightUnit> w1 = new Quantity<WeightUnit>(1.0, WeightUnit.KG);
 	    Quantity<WeightUnit> w2 = new Quantity<WeightUnit>(1000.0,WeightUnit.GRAM);
 	    System.out.println("Are the w1 and w2 equals : "+demonstrateEquality(w1, w2));
@@ -40,7 +57,7 @@ public class QuantityMeasurement {
 	    System.out.println("Convert Kg To Gram : "+demonstrateConversion(w1,WeightUnit.GRAM));
 	    System.out.println("Addition of Kg and Gram : "+demonstrateAddition(w1, w2,WeightUnit.KG));
 	    
-	    //Volume Unit
+//	    Volume Unit
 	    
 	    System.out.println("Is Litre equal Litre : "+demonstrateEquality(new Quantity<VolumeUnit>(1.0,VolumeUnit.LITRE),new Quantity<VolumeUnit>(1.0, VolumeUnit.LITRE)));
 	    
@@ -56,6 +73,19 @@ public class QuantityMeasurement {
         
         System.out.println("Addition of litre with mililitre : "+demonstrateAddition(new Quantity<VolumeUnit>(1.0,VolumeUnit.LITRE),new Quantity<VolumeUnit>(1000.0, VolumeUnit.MILLILITRE)));
         
+        //Arithmetic operation
+        System.out.println("Subtraction of Feet and Inches : "+demonstrateSubtract(new Quantity<LengthUnit>(10.0,LengthUnit.FEET),new Quantity<LengthUnit>(6.0,LengthUnit.INCHES)));
+        
+        System.out.println("Subtraction of Kg and Gram : "+demonstrateSubtract(new Quantity<WeightUnit>(10.0,WeightUnit.KG), new Quantity<WeightUnit>(5000.0, WeightUnit.GRAM)));
+        
+        System.out.println("Subtraction of Litre and mililitre : "+demonstrateSubtract(new Quantity<VolumeUnit>(5.0, VolumeUnit.LITRE), new Quantity<VolumeUnit>(500.0,VolumeUnit.MILLILITRE)));
+        
+        System.out.println("Subtraction of feet with inche to inche : "+demonstrateSubtract(new Quantity<LengthUnit>(10.0, LengthUnit.FEET),new Quantity<LengthUnit>(6.0,LengthUnit.INCHES),LengthUnit.INCHES));
+        
+        System.out.println("Subtraction of kg with gram to gram : "+demonstrateSubtract(new Quantity<WeightUnit>(10.0,WeightUnit.KG),new Quantity<WeightUnit>(5000.0,WeightUnit.GRAM),WeightUnit.GRAM));
+        
+        System.out.println("Division of Feet with feet : "+demonstrateDivision(new Quantity<LengthUnit>(10.0, LengthUnit.FEET), new Quantity<LengthUnit>(2.0, LengthUnit.FEET)));
        
+        System.out.println("Division of inche with feet : "+demonstrateDivision(new Quantity<LengthUnit>(24.0,LengthUnit.INCHES),new Quantity<LengthUnit>(2.0,LengthUnit.FEET)));
 	}
 }
