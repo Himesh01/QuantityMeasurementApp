@@ -1,7 +1,6 @@
 package quantitymeasurementapp;
 
 public interface IMeasurable {
-	
 	double getConversionFactor();
     
     double convertToBaseUnit(double value);
