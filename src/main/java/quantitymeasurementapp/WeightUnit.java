@@ -29,5 +29,6 @@ public enum WeightUnit implements IMeasurable{
 	public String getUnitName() {
 		// TODO Auto-generated method stub
 		return WeightUnit.this.name();
+		
 	}
 }

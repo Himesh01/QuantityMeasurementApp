@@ -73,7 +73,7 @@ public class QuantityMeasurement {
         
         System.out.println("Addition of litre with mililitre : "+demonstrateAddition(new Quantity<VolumeUnit>(1.0,VolumeUnit.LITRE),new Quantity<VolumeUnit>(1000.0, VolumeUnit.MILLILITRE)));
         
-        //Arithmetic operation
+//        Arthimetic operation
         System.out.println("Subtraction of Feet and Inches : "+demonstrateSubtract(new Quantity<LengthUnit>(10.0,LengthUnit.FEET),new Quantity<LengthUnit>(6.0,LengthUnit.INCHES)));
         
         System.out.println("Subtraction of Kg and Gram : "+demonstrateSubtract(new Quantity<WeightUnit>(10.0,WeightUnit.KG), new Quantity<WeightUnit>(5000.0, WeightUnit.GRAM)));
@@ -87,5 +87,19 @@ public class QuantityMeasurement {
         System.out.println("Division of Feet with feet : "+demonstrateDivision(new Quantity<LengthUnit>(10.0, LengthUnit.FEET), new Quantity<LengthUnit>(2.0, LengthUnit.FEET)));
        
         System.out.println("Division of inche with feet : "+demonstrateDivision(new Quantity<LengthUnit>(24.0,LengthUnit.INCHES),new Quantity<LengthUnit>(2.0,LengthUnit.FEET)));
+        
+        //Centralized Arithemetic Operation
+        
+        System.out.println("Centralized Addition feet to inches : "+demonstrateAddition(new Quantity<LengthUnit>(1.0, LengthUnit.FEET),new Quantity<LengthUnit>(12.0, LengthUnit.INCHES)));
+        
+        System.out.println("Centralized Addition of kg and gram to Gram : "+demonstrateAddition(new Quantity<WeightUnit>(10.0,WeightUnit.KG ), new Quantity<WeightUnit>(5000.0, WeightUnit.GRAM),WeightUnit.GRAM));
+        
+        System.out.println("Centralized Substraction of Feet and inches : "+demonstrateSubtract(new Quantity<LengthUnit>(10.0,LengthUnit.FEET),new Quantity<LengthUnit>(6.0,LengthUnit.INCHES)));
+        
+        System.out.println("centralized Subtraction Litre and Millitre : "+demonstrateSubtract(new Quantity<VolumeUnit>(5.0,VolumeUnit.LITRE), new Quantity<VolumeUnit>(2.0,VolumeUnit.LITRE),VolumeUnit.MILLILITRE));
+        
+        System.out.println("Centralized Division Feet by Feet : "+demonstrateDivision(new Quantity<LengthUnit>(10.0,LengthUnit.FEET), new Quantity<LengthUnit>(2.0,LengthUnit.FEET)));
+        
+        System.out.println("Centralized Division Inches by feet : "+demonstrateDivision(new Quantity<LengthUnit>(24.0,LengthUnit.INCHES), new Quantity<LengthUnit>(2.0,LengthUnit.FEET)));
 	}
 }

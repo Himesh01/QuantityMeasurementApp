@@ -803,4 +803,27 @@ public class TestQuantityMeasurementApp {
 	    		new Quantity<>(10.0,LengthUnit.FEET).division(new Quantity<LengthUnit>(0.0,LengthUnit.FEET)) ;
 	    	 });
 	     }
+	     
+	     //Centralized Arithmetic Operation 
+	     @Test
+	     public void testArithmeticOperation_Add_EnumComputation() {
+	    	 assertEquals(9.0,new Quantity<LengthUnit>(5.0,LengthUnit.FEET).add(new Quantity<LengthUnit>(4.0,LengthUnit.FEET)).getValue());
+	     }
+	     
+	     @Test
+	     public void testArithmeticOperation_Subtract_EnumComputation() {
+	    	 assertEquals(5.0,new Quantity<LengthUnit>(10.0,LengthUnit.FEET).subtract(new Quantity<LengthUnit>(5.0,LengthUnit.FEET)).getValue()); 
+	     }
+	     
+	     @Test
+	     public void testArithmeticOperation_Divide_EnumComputation() {
+	    	 assertEquals(2.0,new Quantity<LengthUnit>(10.0,LengthUnit.FEET).division(new Quantity<LengthUnit>(5.0,LengthUnit.FEET)).getValue());
+	     }
+	     
+	     @Test
+	     public void testArithmeticOperation_DivideByZero_EnumThrows() {
+	    	assertThrows(ArithmeticException.class,()->{
+	    		new Quantity<LengthUnit>(10.0,LengthUnit.FEET).division(new Quantity<LengthUnit>(0.0,LengthUnit.FEET));
+	    	});
+	     }
 }
