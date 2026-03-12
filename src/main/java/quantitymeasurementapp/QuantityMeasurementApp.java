@@ -146,7 +146,7 @@ public class QuantityMeasurementApp {
 //        	System.out.println("Cannot add absolute temperatures: " +e.getMessage());
 //
 //        	}
-    
+         
     	QuantityMeasurementApp temp = getInstance();
     	QuantityDTO q1 = temp.controller.performDivision(new QuantityDTO(10,"FEET","LENGTH"),new QuantityDTO(2,"FEET","LENGTH"));
     	System.out.println(q1.toString());
