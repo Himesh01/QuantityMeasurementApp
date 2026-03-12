@@ -890,5 +890,5 @@ public class TestQuantityMeasurementApp {
 	    	 
 	    	 assertEquals(3.0,controllers.performAddition(q1, q2).getValue());
 	     }
-	    
+	   
 }
