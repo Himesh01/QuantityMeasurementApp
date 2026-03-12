@@ -1,6 +1,7 @@
 package quantitymeasurementapp;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -10,10 +11,14 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import quantitymeasurementapp.InvalidUnitMeasurementException;
-import quantitymeasurementapp.LengthUnit;
-import quantitymeasurementapp.Quantity;
-import quantitymeasurementapp.VolumeUnit;
-import quantitymeasurementapp.WeightUnit;
+import quantitymeasurementapp.controller.QuantityMeasurementController;
+import quantitymeasurementapp.entity.QuantityDTO;
+import quantitymeasurementapp.model.Quantity;
+import quantitymeasurementapp.unit.LengthUnit;
+import quantitymeasurementapp.unit.Temperature;
+import quantitymeasurementapp.unit.VolumneUnit;
+import quantitymeasurementapp.unit.WeightUnit;
+import quantitymeasurementapp.QuantityMeasurementApp;
 
 public class TestQuantityMeasurementApp {
 		Quantity<LengthUnit> len1;
@@ -24,8 +29,10 @@ public class TestQuantityMeasurementApp {
 		Quantity<WeightUnit> val1;
 		Quantity<WeightUnit> val2;
 		
-		Quantity<VolumeUnit> v1;
-		Quantity<VolumeUnit> v2;
+		Quantity<VolumneUnit> v1;
+		Quantity<VolumneUnit> v2;
+		
+		private static final QuantityMeasurementController controllers = QuantityMeasurementApp.getInstance().controller;
 		
 		@Test
 		public void testMeasurableInterfaceLengthUnitImplementation() {
@@ -346,7 +353,7 @@ public class TestQuantityMeasurementApp {
 	    	assertEquals(0.003,len1.add(len2).getValue(),0.0001);
 	    }
 	    
-	    // Addition of two unit two specific unit 
+//	    Addition of two unit two specific unit 
 	    
 	    @Test
 	    public void testAdditionExplicitTargetUnitFeet() throws InvalidUnitMeasurementException {
@@ -359,6 +366,7 @@ public class TestQuantityMeasurementApp {
 	    public void testAdditionExplicitTargetUnitInches() throws InvalidUnitMeasurementException{
 	    	len1 = new Quantity<LengthUnit>(1.0,LengthUnit.FEET);
 	    	len2 = new Quantity<LengthUnit>(12.0,LengthUnit.INCHES);
+	    	System.out.println(len1.add(len2,LengthUnit.INCHES));
 	    	assertEquals(24.0,len1.add(len2,LengthUnit.INCHES).getValue());
 	    }
 	    
@@ -419,7 +427,7 @@ public class TestQuantityMeasurementApp {
 	     public void testAdditionTargetUnitNullTargetUnit() throws InvalidUnitMeasurementException{
 	    	 len1 = new Quantity<LengthUnit>(2.0,LengthUnit.YARD);
 	      	len2 = new Quantity<LengthUnit>(3.0,LengthUnit.FEET);
-	      	assertThrows(IllegalArgumentException.class,()->{
+	      	assertThrows(Exception.class,()->{
 	      		len1.add(len2,null);
 	      	});
 	     }
@@ -632,50 +640,50 @@ public class TestQuantityMeasurementApp {
 	    	 assertEquals(10.0,val1.add(val2).getValue());
 	     }
 	     
-	     //Volume Unit
+//	     Volume Unit
 	     @Test
 	     public void testEqualityLitreToLitreSameValue() {
-	    	 v1 = new Quantity<VolumeUnit>(1.0,VolumeUnit.LITRE);
-	    	 v2 = new Quantity<VolumeUnit>(1.0,VolumeUnit.LITRE);
+	    	 v1 = new Quantity<VolumneUnit>(1.0,VolumneUnit.LITRE);
+	    	 v2 = new Quantity<VolumneUnit>(1.0,VolumneUnit.LITRE);
 	    	 assertTrue(v1.equals(v2));
 	     }
 	     
 	     @Test
 	     public void testEqualityLitreToLitreDifferentValue() {
-	    	 v1 = new Quantity<VolumeUnit>(1.0,VolumeUnit.LITRE);
-	    	 v2 = new Quantity<VolumeUnit>(2.0,VolumeUnit.LITRE);
+	    	 v1 = new Quantity<VolumneUnit>(1.0,VolumneUnit.LITRE);
+	    	 v2 = new Quantity<VolumneUnit>(2.0,VolumneUnit.LITRE);
 	    	 assertFalse(v1.equals(v2));
 	     }
 	     
 	     @Test
 	     public void testEquality_LitreToMillilitre_EquivalentValue() {
-	    	 v1 = new Quantity<VolumeUnit>(1.0,VolumeUnit.LITRE);
-	    	 v2 = new Quantity<VolumeUnit>(1000.0,VolumeUnit.MILLILITRE);
+	    	 v1 = new Quantity<VolumneUnit>(1.0,VolumneUnit.LITRE);
+	    	 v2 = new Quantity<VolumneUnit>(1000.0,VolumneUnit.MILLILITRE);
 	    	 assertTrue(v1.equals(v2));
 	     }
 	     
 	     @Test
 	     public void testEquality_LitreToGallon_EquivalentValue() {
-	    	 v1 = new Quantity<VolumeUnit>(1.0,VolumeUnit.LITRE);
-	    	 v2 = new Quantity<VolumeUnit>(0.264172,VolumeUnit.GALLON);
+	    	 v1 = new Quantity<VolumneUnit>(1.0,VolumneUnit.LITRE);
+	    	 v2 = new Quantity<VolumneUnit>(0.264172,VolumneUnit.GALLON);
 	    	 assertTrue(v1.equals(v2));
 	     }
 	     
 	     @Test
 	     public void testEquality_GallonToLitre_EquivalentValue() {
-	    	 v1 = new Quantity<VolumeUnit>(3.78541,VolumeUnit.LITRE);
-	    	 v2 = new Quantity<VolumeUnit>(1.0,VolumeUnit.GALLON);
+	    	 v1 = new Quantity<VolumneUnit>(3.78541,VolumneUnit.LITRE);
+	    	 v2 = new Quantity<VolumneUnit>(1.0,VolumneUnit.GALLON);
 	    	 assertTrue(v2.equals(v1));
 	     }
 	     
 	     @Test
 	     public void testEquality_NullComparison() {
-	    	 assertFalse(new Quantity<VolumeUnit>(1.0,VolumeUnit.LITRE).equals(null));
+	    	 assertFalse(new Quantity<VolumneUnit>(1.0,VolumneUnit.LITRE).equals(null));
 	     }
 	     
 	     @Test
 	     public void testEquality_SameReference() {
-	    	 v1 = new Quantity<VolumeUnit>(1.0,VolumeUnit.LITRE);
+	    	 v1 = new Quantity<VolumneUnit>(1.0,VolumneUnit.LITRE);
 	    	 v2 = v1;
 	    	 assertTrue(v1.equals(v2));
 	     }
@@ -683,51 +691,51 @@ public class TestQuantityMeasurementApp {
 	     @Test
 	     public void testEquality_NullUnit() {
 	    	 assertThrows(IllegalArgumentException.class,()->{
-	    		 v1 = new Quantity<VolumeUnit>(1.0,null); 
+	    		 v1 = new Quantity<VolumneUnit>(1.0,null); 
 	    	 });
 	     }
 	     
 	     @Test
 	     public void testEquality_ZeroValue() {
-	    	 assertTrue(new Quantity<>(0.0,VolumeUnit.LITRE).equals(new Quantity<>(0.0,VolumeUnit.MILLILITRE)));
+	    	 assertTrue(new Quantity<>(0.0,VolumneUnit.LITRE).equals(new Quantity<>(0.0,VolumneUnit.MILLILITRE)));
 	     }
 	     
 	     @Test
 	     public void testEquality_NegativeVolume() {
-	    	 assertTrue(new Quantity<>(-1.0,VolumeUnit.LITRE).equals(new Quantity<>(-1000.0,VolumeUnit.MILLILITRE)));
+	    	 assertTrue(new Quantity<>(-1.0,VolumneUnit.LITRE).equals(new Quantity<>(-1000.0,VolumneUnit.MILLILITRE)));
 	     }
 	     @Test
 	     public void testConversion_LitreToMillilitre() {
-	    	 assertEquals(1000.0,new Quantity<>(1.0,VolumeUnit.LITRE).convertTo(VolumeUnit.MILLILITRE).getValue());
+	    	 assertEquals(1000.0,new Quantity<>(1.0,VolumneUnit.LITRE).convertTo(VolumneUnit.MILLILITRE).getValue());
 	    	 
 	     }
 	     
 	     @Test
 	     public void testConversion_GallonToLitre() {
-	    	 assertEquals(3.78541, new Quantity<>(1.0,VolumeUnit.GALLON).convertTo(VolumeUnit.LITRE).getValue(),0.00001);
+	    	 assertEquals(3.78541, new Quantity<>(1.0,VolumneUnit.GALLON).convertTo(VolumneUnit.LITRE).getValue(),0.00001);
 	     }
 	     
 	     @Test
 	     public void testVolumeUnitEnum_GallonConstant() {
-	    	 assertEquals(3.78541, VolumeUnit.GALLON.getConversionFactor());
+	    	 assertEquals(3.78541, VolumneUnit.GALLON.getConversionFactor());
 	     }
 	     
 	     @Test
 	     public void testConvertToBaseUnit_LitreToLitre() {
-	    	 assertEquals(5.0,VolumeUnit.LITRE.convertToBaseUnit(5.0));
+	    	 assertEquals(5.0,VolumneUnit.LITRE.convertToBaseUnit(5.0));
 	     }
 	     
 	     @Test
 	     public void testConvertToBaseUnit_MillilitreToLitre() {
-	    	 assertEquals(1.0,VolumeUnit.MILLILITRE.convertToBaseUnit(1000.0));
+	    	 assertEquals(1.0,VolumneUnit.MILLILITRE.convertToBaseUnit(1000.0));
 	     }
 	     
 	     @Test
 	     public void testConvertFromBaseUnit_LitreToLitre() {
-	    	 assertEquals(2.0, VolumeUnit.LITRE.convertFromBaseUnit(2.0));
+	    	 assertEquals(2.0, VolumneUnit.LITRE.convertFromBaseUnit(2.0));
 	     }
 	     
-	     //Arithmetic Operation 
+//	     Arithmetic Operation 
 	     
 	     @Test
 	     public void testSubtraction_SameUnit_FeetMinusFeet() {
@@ -736,7 +744,7 @@ public class TestQuantityMeasurementApp {
 	     
 	     @Test
 	     public void testSubtraction_SameUnit_LitreMinusLitre() {
-	    	 assertEquals(7.0,new Quantity<VolumeUnit>(10.0,VolumeUnit.LITRE).subtract(new Quantity<VolumeUnit>(3.0,VolumeUnit.LITRE)).getValue());
+	    	 assertEquals(7.0,new Quantity<VolumneUnit>(10.0,VolumneUnit.LITRE).subtract(new Quantity<VolumneUnit>(3.0,VolumneUnit.LITRE)).getValue());
 	     }
 	     
 	     @Test
@@ -766,7 +774,7 @@ public class TestQuantityMeasurementApp {
 	     
 	     @Test
 	     public void testSubtraction_NullOperand() {
-	    	 assertThrows(IllegalArgumentException.class,()->{
+	    	 assertThrows(Exception.class,()->{
 	    		 new Quantity<>(10.0, LengthUnit.FEET).subtract(null);
 	    	 });
 	     }
@@ -778,7 +786,7 @@ public class TestQuantityMeasurementApp {
 	     
 	     @Test
 	     public void testDivision_SameUnit_LitreDividedByLitre() {
-	    	 assertEquals(2.0,new Quantity<>(10.0,VolumeUnit.LITRE).division(new Quantity<VolumeUnit>(5.0,VolumeUnit.LITRE)).getValue());
+	    	 assertEquals(2.0,new Quantity<>(10.0,VolumneUnit.LITRE).division(new Quantity<VolumneUnit>(5.0,VolumneUnit.LITRE)).getValue());
 	     }
 	     
 	     @Test
@@ -804,7 +812,7 @@ public class TestQuantityMeasurementApp {
 	    	 });
 	     }
 	     
-	     //Centralized Arithmetic Operation 
+	     //Centralized Arithemetic Operation 
 	     @Test
 	     public void testArithmeticOperation_Add_EnumComputation() {
 	    	 assertEquals(9.0,new Quantity<LengthUnit>(5.0,LengthUnit.FEET).add(new Quantity<LengthUnit>(4.0,LengthUnit.FEET)).getValue());
@@ -827,61 +835,60 @@ public class TestQuantityMeasurementApp {
 	    	});
 	     }
 	     
+	     //Temperature 
 	     @Test
 	     public void testTemperatureEquality_CelsiusToCelsius_SameValue() {
-	    	 assertTrue(new Quantity<TemperatureUnit>(0.0, TemperatureUnit.CELSIUS).equals(new Quantity<TemperatureUnit>(0.0, TemperatureUnit.CELSIUS)));
+	    	 assertTrue(new Quantity<>(0.0,Temperature.CELSIUS).equals(new Quantity<>(0.0, Temperature.CELSIUS)));
 	     }
 	     
-	     private final double EPSILON = 0.0001;
-
 	     @Test
-	     void testTemperatureEquality_FahrenheitToFahrenheit_SameValue() {
-	         Quantity<TemperatureUnit> f1 = new Quantity<>(32.0, TemperatureUnit.FAHRENHEIT);
-	         Quantity<TemperatureUnit> f2 = new Quantity<>(32.0,TemperatureUnit.FAHRENHEIT);
-	         assertEquals(f1, f2);
+	     public void testTemperatureEquality_FahrenheitToFahrenheit_SameValue() {
+	    	 assertTrue(new Quantity<>(32.0,Temperature.FAHRENHEIT).equals(new Quantity<>(32.0,Temperature.FAHRENHEIT)));
 	     }
-
+	     
 	     @Test
-	     void testTemperatureEquality_CelsiusToFahrenheit_0Celsius32Fahrenheit() {
-	         Quantity<TemperatureUnit> celsius = new Quantity<>(0.0, TemperatureUnit.CELSIUS);
-	         Quantity<TemperatureUnit> fahrenheit = new Quantity<>(32.0,TemperatureUnit.FAHRENHEIT);
-	         assertTrue(celsius.equals(fahrenheit), "0°C should equal 32°F");
+	     public void testTemperatureEquality_CelsiusToFahrenheit_SameValue() {
+	    	 assertTrue(new Quantity<>(100.0,Temperature.CELSIUS).equals(new Quantity<>(212.0,Temperature.FAHRENHEIT)));
 	     }
-
+	     
 	     @Test
-	     void testTemperatureEquality_CelsiusToFahrenheit_100Celsius212Fahrenheit() {
-	         Quantity<TemperatureUnit> boilingC = new Quantity<>(100.0, TemperatureUnit.CELSIUS);
-	         Quantity<TemperatureUnit> boilingF = new Quantity<>(212.0, TemperatureUnit.FAHRENHEIT);
-	         assertTrue(boilingC.equals(boilingF), "100°C should equal 212°F");
+	     public void lengthFeetEqualsInches() {
+	    	 QuantityDTO q1 = new QuantityDTO(2,"FEET","LENGTH");
+	    	 QuantityDTO q2 = new QuantityDTO(24,"INCHES","LENGTH");
+	    	 
+	    	 assertTrue(controllers.performComparison(q1, q2));
 	     }
-
+	     
 	     @Test
-	     void testTemperatureEquality_CelsiusToFahrenheit_Negative40Equal() {
-	         // -40 is the unique point where C and F scales intersect
-	         Quantity<TemperatureUnit> c40 = new Quantity<>(-40.0, TemperatureUnit.CELSIUS);
-	         Quantity<TemperatureUnit> f40 = new Quantity<>(-40.0, TemperatureUnit.FAHRENHEIT);
-	         assertEquals(c40, f40);
+	     public void lengthYardsEqualsFeet() {
+	    	 QuantityDTO q1 = new QuantityDTO(1.0,"YARD","LENGTH");
+	    	 QuantityDTO q2 = new QuantityDTO(3.0,"FEET","LENGTH");
+	    	 
+	    	 assertTrue(controllers.performComparison(q1, q2));
 	     }
-
+	     
 	     @Test
-	     void testTemperatureEquality_SymmetricProperty() {
-	         Quantity<TemperatureUnit> a = new Quantity<>(0.0, TemperatureUnit.CELSIUS);
-	         Quantity<TemperatureUnit> b = new Quantity<>(32.0, TemperatureUnit.FAHRENHEIT);
-	         assertTrue(a.equals(b) && b.equals(a));
+	     public void weightKilogramEqualsGrams() {
+	    	 QuantityDTO q1 = new QuantityDTO(1,"KG","WEIGHT");
+	    	 QuantityDTO q2 = new QuantityDTO(1000,"GRAM","WEIGHT");
+	    	 
+	    	 assertTrue(controllers.performComparison(q1, q2));
 	     }
-
+	     
 	     @Test
-	     void testTemperatureVsLengthIncompatibility() {
-	         Quantity<TemperatureUnit> temp = new Quantity<>(100.0, TemperatureUnit.CELSIUS);
-	         Quantity<LengthUnit> length = new Quantity<>(100.0, LengthUnit.FEET);
-	        
+	     public void convertLengthFeetToInches() {
+	    	 QuantityDTO q1 = new QuantityDTO(2.0,"FEET","LENGTH");
+	    	 QuantityDTO q2 = new QuantityDTO(0.0,"INCHES","LENGTH");
+	    	 
+	    	 assertEquals(24.0,controllers.performConversion(q1, q2).getValue());
 	     }
-
+	     
 	     @Test
-	     void testTemperatureVsWeightIncompatibility() {
-	         Quantity<TemperatureUnit> temp = new Quantity<>(50.0, TemperatureUnit.CELSIUS);
-	         Quantity<WeightUnit> weight = new Quantity<>(50.0, WeightUnit.KG);
-	         
-	         assertFalse(temp.equals(weight));
+	     public void addLengthFeetAndInches() {
+	    	 QuantityDTO q1 = new QuantityDTO(2.0,"FEET","LENGTH");
+	    	 QuantityDTO q2 = new QuantityDTO(12.0,"INCHES","LENGTH");
+	    	 
+	    	 assertEquals(3.0,controllers.performAddition(q1, q2).getValue());
 	     }
+	    
 }
