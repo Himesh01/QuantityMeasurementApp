@@ -92,7 +92,8 @@ public class QuantityMeasurementEntity implements java.io.Serializable {
 
 		@PreUpdate
 		protected void onUpdate() {
-		updatedAt = LocalDateTime.now();}
+			updatedAt = LocalDateTime.now();
+		}
 		
 		public QuantityMeasurementEntity(QuantityDTO thisQuantity,QuantityDTO  thatQuantity,String operation, String result) {
                 this(thisQuantity, thatQuantity, operation);
